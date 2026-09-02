@@ -1,3 +1,4 @@
+drop supermercado if exists;
 create database supermercado;
 use supermercado;
 create table fornecedor(
