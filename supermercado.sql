@@ -1,4 +1,4 @@
-drop supermercado if exists;
+drop database supermercado if exists;
 create database supermercado;
 use supermercado;
 create table fornecedor(
@@ -38,7 +38,7 @@ create table funcionario(
     email varchar(255),
     endereco varchar(255),
     cargo varchar(50) not null,
-    salario decimal(7,2) default 0,
+    salario decimal(9,2) default 0,
     senha varchar(20) not null
 );
 create table venda(
