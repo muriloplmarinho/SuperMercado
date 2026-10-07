@@ -40,10 +40,18 @@ class Produto{
         return (new DataBase('produto'))->delete('id='.$this->id);
     }
     public static function listar($where = null, $order = null, $limit = null){
-        return (new DataBase('produto'))->select($where,$order,$limit)->fetchAll(\PDO::FETCH_CLASS, self::class);
+        $array = [];
+        $produtos = (new DataBase('produto'))->select($where,$order,$limit)->fetchAll(\PDO::FETCH_CLASS, self::class);
+        foreach($produtos as $p){
+            $p->fornecedor = Fornecedor::buscarPorId($p->id_fornecedor);
+            $array[] = $p;
+        }
+        return $array;
     }
     public static function buscarPorId($id){
-        return (new DataBase('produto'))->select('id='.$id)->fetchObject(self::class);
-    }
+        $produto = (new DataBase('produto'))->select('id='.$id)->fetchObject(self::class);
+        $produto->fornecedor = Fornecedor::buscarPorId($produto->id_fornecedor);
+        return $produto;
+        }
     
 }
